@@ -1,0 +1,263 @@
+﻿@model LabReport2.ViewModels.RevenueDetailsViewModel
+@{
+    ViewBag.Title = "RevenueDetalis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="alert alert-info" role="alert">
+                Number of Patients-@Model.NumberOfPatients
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+
+        <div class="col-md-3">
+            <div class="alert alert-info" role="alert">
+                Number of Reports-@Model.NumberOfReports
+
+
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+
+        <div class="col-md-3">
+            <div class="alert alert-info" role="alert">
+                Total Revenue- @Model.Revenue
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>
+
+        <div class="col-md-3">
+            <div class="alert alert-info" role="alert">
+                Start Date-@string.Format("{0:d MMM yyyy}", @Model.StartDate)
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+
+        <div class="col-md-3">
+            <div class="alert alert-info" role="alert">
+                End Date-@string.Format("{0:d MMM yyyy}", @Model.EndDate)
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<br /><br />
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div id="chartContainer3" style="height: 370px; width: 100%;"></div>
+<br />
+<br />
+
+
+
+
+
+
+
+
+
+<div class="table-responsive">
+
+    <table id="PendingReports" class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Sno</th>
+                <th scope="col">RId&nbsp;Id</th>
+
+                <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;&nbsp;&nbsp;&nbsp;</th>
+
+                <th scope="col">Patient&nbsp;Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Referred&nbsp;By</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Test&nbsp;Name</th>
+
+                <th scope="col">DateCreated</th>
+                <th scope="col">ReportBy</th>
+                <th scope="col">ConsultingPathologist</th>
+                <th scope="col">Bill</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int j = 1;
+                foreach (var item in Model.Billitems)
+                {
+                    <tr>
+                        <th scope="row">@j</th>
+                        <td>@item.Report.Id</td>
+
+                        <td>@string.Format("{0:d MMM yyyy}", item.Report.Date)</td>
+                         <td>@item.Report.Patient.PatientName</td>
+                        <td>@item.Report.Patient.Age</td>
+                        <td>@item.Report.Doctor.Name</td>
+                        <td>@item.Report.Patient.Gender</td>
+                        <td>@item.Report.TestTitle.Name</td>
+                        <td>@item.Report.DateAdded</td>
+                        <td>@item.Report.ReportBy</td>
+                        <td>@item.Report.ConsultingPathologist.Name</td>
+                        <td><a href="/bill/bill/@item.BillId">Bill</a></td>
+
+
+
+                    </tr>
+                    j++;
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+@section scripts
+{
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script>
+    window.onload = function () {
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    title: {
+    text: "Name And Number of TestTitle's"
+    },
+    axisY: {
+    title: "No. of Reports"
+    },
+    data: [{
+    type: "column",
+    dataPoints: @Html.Raw(ViewBag.DataPoints)
+    }]
+    });
+    chart.render();
+
+
+        var chart1 = new CanvasJS.Chart("chartContainer1", {
+    animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    title: {
+    text: "Name And Number of TestTitle's"
+    },
+    axisY: {
+    title: "No. of Employees"
+    },
+    data: [{
+    type: "column",
+    dataPoints: @Html.Raw(ViewBag.DataPoints1)
+    }]
+    });
+    chart1.render();
+
+
+         var chart2 = new CanvasJS.Chart("chartContainer2", {
+    animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    title: {
+    text: "Doctor And Number Of Refereals"
+    },
+    axisY: {
+    title: "No. of Refreals"
+    },
+    data: [{
+    type: "column",
+    dataPoints: @Html.Raw(ViewBag.DataPoints2)
+    }]
+    });
+    chart2.render();
+
+         var chart3 = new CanvasJS.Chart("chartContainer3", {
+    animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    title: {
+    text: "Date And Revenue"
+    },
+    axisY: {
+    title: "Revenue"
+    },
+    data: [{
+    type: "column",
+    dataPoints: @Html.Raw(ViewBag.DataPoints3)
+    }]
+    });
+    chart3.render();
+
+    }
+
+
+
+
+    </script>
+    @*<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+        <script>
+             window.onload = function () {
+
+        var chart1 = new CanvasJs.Chart("chartContainer1", {
+        animationenabled: true,
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
+        title: {
+        text: "dates and number of reports"
+        },
+        axisy: {
+        title: "no. of reports"
+        },
+        data: [{
+        type: "column",
+        datapoints: @Html.Raw(ViewBag.DataPoints1)
+        }]
+        });
+        chart1.render();
+
+        }
+        </script>*@
+
+
+    <script>
+        $(document).ready(function () {
+
+            $("#PendingReports").DataTable();
+        });
+    </script>
+
+}

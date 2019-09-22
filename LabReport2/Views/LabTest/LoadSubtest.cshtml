@@ -1,0 +1,28 @@
+﻿
+@model List<LabReport2.Models.SubtestTitle>
+@{
+    ViewBag.Title = "LoadSubtest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="col-lg-6">
+
+        <br><br><br>
+        <div class="alert alert-success" role="alert">
+            Click The Subtest Name For Edit It
+        </div>
+
+        <ul class="list-group">
+            @foreach (var subtests in Model)
+            {
+                <li class="list-group-item " align="center"><a href=" /Labtest/EditSubtestTitle/@subtests.Id">@subtests.Name </a>&nbsp; </li>
+
+
+
+            }
+
+        </ul>
+
+    </div>
+
+

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LabTechnician Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Lab Application</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                @*<li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>*@
+                <li class="nav-item  active">
+                    <a class="nav-link" href="/Home/Index">Home</a>
+                </li>
+                <li class="nav-item  active">
+                    <a class="nav-link" href="/Report">Add Report</a>
+                </li>
+                <li class="nav-item  active">
+                    <a class="nav-link " href="/PatientReport/PendingReport">Pending Reports</a>
+                </li>
+                <li class="nav-item  active">
+                    <a class="nav-link" href="/PatientReport/CompleteReport">Completed Reports</a>
+                </li>
+                <li class="nav-item  active">
+                    <a class="nav-link" href="/Patient">Patient</a>
+                </li>
+               
+                <li class="nav-item  active">
+                    <a class="nav-link" href="/Admin/">Admin Panel</a>
+                </li>
+                <li class="nav-item  active">
+                    <a class="nav-link" href="/Setting">Settings</a>
+                </li>
+
+            </ul>
+
+        </div>
+        @*        @Html.Partial("_LoginPartial")*@
+        @Html.Partial("_DashBoardLoginPartial")
+
+
+    </nav>
+
+
+
+
+    <div>
+        @RenderBody();
+    </div>
+</body>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+@RenderSection("scripts", required: false)
+</html>

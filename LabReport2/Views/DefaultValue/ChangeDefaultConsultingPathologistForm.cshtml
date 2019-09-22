@@ -1,0 +1,26 @@
+﻿@model LabReport2.ViewModels.ChangeDefaultConsultingPathologistViewModel
+@{
+    ViewBag.Title = "ChangeDefaultConsultingPathologistForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="container" align="center">
+        <h2>ChangeDefaultConsultingPathologistForm</h2>
+        @using (Html.BeginForm("ChangeDefaultConsultingPathologist", "DefaultValue"))
+        {
+
+            <div class="Form-group">
+                <label>Default Consulting Pathologist</label>
+                @Html.DropDownListFor(d => d.Doctor.Id, new SelectList(Model.ConsultingPathologists, "Id", "Name"), "Select Default Consulting Pathologist", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Doctor.Id)
+            </div>
+
+            @Html.AntiForgeryToken()
+            <br />
+            <br />
+            <div><button class="btn btn-primary" type="submit">Submit</button></div>
+        }
+    </div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

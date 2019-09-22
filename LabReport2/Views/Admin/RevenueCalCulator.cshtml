@@ -1,0 +1,23 @@
+﻿@model LabReport2.ViewModels.RevenueCalculatorViewModel
+@{
+    ViewBag.Title = "RevenueCalCulator";
+    Layout = "~/Views/Shared/PlainPage.cshtml";
+}
+
+<h2>RevenueCalCulator</h2>
+<h1>@Model.Revenue</h1>
+<div align="center">
+    @using (Html.BeginForm("RevenueDetalis", "Admin"))
+    {
+        @Html.HiddenFor(r=>r.StartDate);
+        @Html.HiddenFor(r => r.EndDate);
+
+        <div><button class="btn btn-primary" type="submit">Details</button></div>
+
+        @Html.AntiForgeryToken()
+    }
+
+
+</div>
+
+

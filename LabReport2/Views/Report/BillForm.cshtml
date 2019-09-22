@@ -1,0 +1,125 @@
+﻿
+@model LabReport2.ViewModels.BillFormViewModel
+@{
+    ViewBag.Title = "BillForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div align="center">
+        <h2 align="center">Bill Form </h2>
+
+
+
+
+        @using (Html.BeginForm("SaveBill", "Report"))
+        {
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Sno</th>
+                        <th scope="col">TestTitle</th>
+
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 0;
+                        foreach (var report in Model.Reports)
+                        {
+                            @Html.HiddenFor(t => Model.Reports[i].TestTitleId)
+
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>@Model.Reports[i].TestTitle.Name</td>
+                                <td>
+                                    @Html.TextBoxFor(d => Model.Reports[i].Price, new { @class = "form-control" })
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+
+                    <tr>
+                        <th></th>
+
+                        <td>Discount</td>
+                        <td>
+                            @Html.TextBoxFor(b => b.Bill.Discount, new { @class = "form-control", @value = 0 })
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+         
+
+            @Html.HiddenFor(t => t.Report.DoctorId)
+
+            @Html.HiddenFor(t => t.Report.DigitalSignature)
+            @Html.HiddenFor(t => t.Report.Date)
+            @Html.HiddenFor(t => t.Report.DateAdded)
+            @Html.HiddenFor(t => t.Report.InvestigatedBy)
+            @Html.HiddenFor(t => t.Report.ReportBy)
+
+            
+            @Html.HiddenFor(t => t.Patient.AdddedBy)
+            @Html.HiddenFor(t => t.Patient.AddedOn)
+            @Html.HiddenFor(t => t.Patient.Address)
+            @Html.HiddenFor(t => t.Patient.Age)
+            @Html.HiddenFor(t => t.Patient.Gender)
+            @Html.HiddenFor(t => t.Patient.PatientName)
+            @Html.HiddenFor(t => t.Patient.Phone)
+
+            
+            <div><button class="btn btn-primary" type="submit">Submit</button></div>
+
+
+        }
+
+    </div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

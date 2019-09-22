@@ -1,0 +1,155 @@
+﻿
+@model LabReport2.ViewModels.OldPatientReportViewModel
+@{
+    ViewBag.Title = "Old Patient Report Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sex = new List<string> { "M", "F", "Others" };
+
+}
+
+<h2 align="center">Old Patient Report Form</h2>
+<hr class="my-4">
+
+<div align="center">
+    @using (Html.BeginForm("SaveOldPatientReport", "Report"))
+    {
+        //firstly we take  the patient details
+
+        <div class="form-group">
+            <label>Patient Name</label>
+            <br />
+            <input class="form-control"id="patient" name="patient"  data-rule-validPatient="true" required >
+
+
+        </div>
+        <div>
+            <input  class="form-control" id="patient" name="patient"  data-rule-validPatient="true">
+        </div>
+        //now for report
+        <div class="form-group">
+            @Html.LabelFor(r => r.Report.Date)
+            @Html.TextBoxFor(r => r.Report.Date, new { @class = "form-control", @type = "Date", @value = string.Format("{0:d MMM yyyy}", DateTime.Now) })
+            @Html.ValidationMessageFor(r => r.Report.Date)
+        </div>
+
+
+        <div class="Form-group">
+            <label>Referred By</label>
+            @Html.DropDownListFor(r => r.Report.DoctorId, new SelectList(Model.Doctors, "Id", "Name"), "Referred By", new { @class = "form-control" })
+            @Html.ValidationMessageFor(r => r.Report.DoctorId)
+        </div>
+
+
+
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(r => r.Report.DigitalSignature) Digital Signature
+            </label>
+        </div>
+
+
+        for (int i = 0; i < 12; i++)
+        {
+            <div class="form-group">
+                <label>Test Title @i</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[i], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+        }
+
+
+        @*<div class="form-group">
+                <label>Test Title 2</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[1], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Test Title 3</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[2], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Test Title 4</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[3], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Test Title 5</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[4], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Test Title 6</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[5], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Test Title 7</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[6], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Test Title 8</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[7], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Test Title 9</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[8], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Test Title 10</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[9], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Test Title 11</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[10], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Test Title 12</label>
+                @Html.DropDownListFor(r => r.TestTitleIds[11], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+            </div>*@
+
+
+
+
+        @Html.HiddenFor(r => r.PatientId, new { @id = "patientId" })
+
+        @Html.AntiForgeryToken()
+        <div><button class="btn btn-primary" type="submit">Submit</button></div>
+
+    }
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var vm = {};
+            var patients = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('patientName'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/patients?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#patient').typeahead({
+                minLength: 1,
+                highlight: true
+            }, {
+                    name: 'patients',
+                    display: 'patientName',
+                    source: patients
+                }).on("typeahead:select", function (e, patient) {
+                    $('#patientId').val(patient.id);
+                    vm.patientId = patient.id
+                });
+            $.validator.addMethod("validPatient", function () {
+                return vm.patientId && vm.patientId !== 0;
+
+            }, "Please Select A Valid Patient ");
+            //$.validator.addMethod("validCustomer", function () {
+            //        return vm.customerId && vm.customerId !== 0;
+            //    }, "Please select a valid customer.");
+
+        });
+
+    </script>
+}
+

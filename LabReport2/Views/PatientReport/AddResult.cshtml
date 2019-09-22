@@ -1,0 +1,195 @@
+﻿@model LabReport2.ViewModels.AddResultViewModel
+@{
+
+    Layout = "~/Views/Shared/_Result.cshtml";
+}
+
+<div class="container" align="center">
+    <div class="row" align="center">
+        <div class="col-md-1"></div>
+        <div class="alert alert-dark col-md-3 mx-1" role="alert">
+            Patient Name-@Model.Patient.PatientName
+        </div>
+
+        <div class="alert alert-dark col-md-3 mx-1" role="alert">
+            Gender/Age-@Model.Patient.Gender/@Model.Patient.Age
+        </div>
+        <div class="alert alert-dark col-md-3 mx-1" role="alert">
+            Patient Id-@Model.Patient.Id
+        </div>
+
+
+    </div>
+
+    <div class="row" align="center">
+        <div class="col-md-1"></div>
+        <div class="alert alert-dark col-md-3 mx-1" role="alert">
+            Referred By-@Model.Report.Doctor.Name
+        </div>
+
+        <div class="alert alert-dark col-md-3 mx-1" role="alert">
+            Date- @string.Format("{0:d MMM yyyy}", @Model.Report.Date)
+        </div>
+        <div class="alert alert-dark col-md-3 mx-1" role="alert">
+            RegNo-@Model.Report.Id
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+<div class="container">
+    @using (Html.BeginForm("ShowData", "PatientReport"))
+    {
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Test</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Max&nbsp;Value</th>
+                    <th scope="col">Min&nbsp;Value</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    var i = 0;
+                    foreach (var subtest in Model.SubtestTitles)
+                    {
+
+                        <tr class="lead"> <th>@subtest.Name</th></tr>
+                        foreach (var test in Model.Tests.Where(t => t.SubtestTitleId == subtest.Id))
+                        {
+
+                            <tr>
+                                <th scope="row">@test.Name</th>
+                                <td>
+                                    <div>
+
+
+                                        @Html.TextBoxFor(t => t.Results[i])
+                                        @*@Html.TextBoxFor(t => t.TestIds[0], new { @class = "form-control",@value=test.Id })*@
+                                        <input hidden value="@test.Id" name="TestIds[@i]">
+
+
+
+
+                                    </div>
+
+                                </td>
+                                <td>@test.Unit</td>
+                                <td>@test.MaxValue </td>
+                                <td> @test.MinValue</td>
+
+                            </tr>
+                            i++;
+                        }
+                    }
+
+
+                }
+
+            </tbody>
+        </table>
+        @Html.HiddenFor(m=>m.Report.Id)
+        <div align="center">
+            <button type="submit" class="btn btn-primary">Primary</button>
+        </div>
+        @*<div align="center">
+            <button type="button" class="btn btn-primary">Primary</button>
+        </div>*@
+     }
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+</div>
+   
+
+    @*<div class="container row">
+
+        <h2 align="center">AddResult</h2>*@
+
+    @*@Model.TestTitle.Name
+        @foreach (var subtest in Model.SubtestTitles)
+        {
+            <hr class="my-4">
+
+            <h1>@subtest.Name</h1>
+            <hr class="my-4">
+
+            foreach (var test in Model.Tests.Where(t => t.SubtestTitleId == subtest.Id))
+            {
+
+
+                <h5>@test.Name  || @test.MaxValue   ||  @test.MinValue  ||@test.Unit||</h5>
+                @*<h5>@test.MaxValue</h5>
+                    <h5>@test.MinValue</h5>
+                    <h5>@test.Unit</h5>
+
+
+            }
+            <hr class="my-4">
+
+
+        }*@
+
+
+
+
+    @*<div class="col-3"></div>
+            <div class="col-1"></div>
+
+            <div class="col-6">
+                @Model.TestTitle.Name
+                <div class="alert alert-dark" role="alert">
+                    A simple dark alert—check it out!
+                </div>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th width="10%" scope="col">Test</th>
+                            <th width="20%" scope="col">Value</th>
+                            <th width="10%" scope="col">Unit</th>
+                            <th scope="col">Ref&nbsp;Range</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var subtest in Model.SubtestTitles)
+                        {
+
+                            <tr class="lead"> <th>SubTest</th></tr>
+                            foreach (var test in Model.Tests.Where(t => t.SubtestTitleId == subtest.Id))
+                            {
+
+                                <tr>
+                                    <th scope="row">@test.Name</th>
+                                    <td>
+                                        <div class="col-xs-2">
+
+                                            <input class="form-control" id="ex2" type="text">
+                                        </div>
+
+                                    </td>
+                                    <td>@test.Unit</td>
+                                    <td>@test.MaxValue - @test.MinValue</td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-3"></div>
+
+        </div>*@

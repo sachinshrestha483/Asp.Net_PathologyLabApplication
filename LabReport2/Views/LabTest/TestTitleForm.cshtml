@@ -1,0 +1,66 @@
+﻿@model LabReport2.ViewModels.TestTitleViewModel
+@{
+    ViewBag.Title = "TestTitleForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="row">
+        <h2 align="center">TestTitleForm</h2>
+
+        <div class="container col-lg-6">
+            <div align="center">
+                @using (Html.BeginForm("SaveTestTitle", "LabTest"))
+                {
+
+                    <div class="form-group">
+                        @Html.LabelFor(t => t.TestTitle.Name)
+                        @Html.TextBoxFor(t => t.TestTitle.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(t => t.TestTitle.Name)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(t => t.TestTitle.Price)
+                        @Html.TextBoxFor(t => t.TestTitle.Price, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(t => t.TestTitle.Price)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(t => t.TestTitle.Notes)
+                        @Html.TextAreaFor(t => t.TestTitle.Notes, new { @class = "form-control", @rows = 5 })
+                        @Html.ValidationMessageFor(t => t.TestTitle.Notes)
+                    </div>
+                    @Html.HiddenFor(t => t.TestTitle.Id)
+                    <br>
+                    <div><button class="btn btn-primary" type="submit">Submit</button></div>
+
+                    @Html.AntiForgeryToken()
+                }
+            </div>
+        </div>
+        @{
+            if (Model.TestTitle.Id != 0)
+            {
+                <div class="col-lg-6">
+                            <div align="center">
+                                <a align="center" type="button" class="btn  btn-primary" href="/LabTest/SubTestForm/@Model.TestTitle.Id">Add Subtest Title </a>
+                            </div>
+                    <br >
+                    <ul class="list-group">
+
+                        @foreach (var subtests in Model.SubTestTitles)
+                        {
+                        <li class="list-group-item col-lg-4"><a href=" /Labtest/EditSubtestTitle/@subtests.Id">@subtests.Name</a> </li>
+
+                        }
+                    </ul>
+                </div>
+            }
+        }
+    </div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+
+

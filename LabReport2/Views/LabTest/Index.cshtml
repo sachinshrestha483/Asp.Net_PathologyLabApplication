@@ -1,0 +1,69 @@
+﻿@model List<LabReport2.Models.TestTitle>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 align="center">Test Titles</h2>
+
+<a class="btn btn-primary" href="/Labtest/TestTitleForm" align="center" role="button">Add New  Test  Title</a>
+<br>
+
+<br>
+
+<table id="Doctors" class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col"> Id</th>
+            <th scope="col">Test Title Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Notes</th>
+
+
+            <th scope="col">Edit It</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var TestTitle in Model)
+        {
+            <tr>
+                <th scope="row">@TestTitle.Id</th>
+                <td>@TestTitle.Name</td>
+                <td>@TestTitle.Price</td>
+                @{
+                    if (TestTitle.Notes==null)
+                    {
+                        TestTitle.Notes = "";
+                    }
+
+                    if (@TestTitle.Notes.Length > 10)
+                    {
+                        <td>@TestTitle.Notes.Substring(0, 10).....</td>
+
+                    }
+                    else
+                    {
+                        <td>@TestTitle.Notes</td>
+
+                    }
+                }
+
+                <td><a class="btn btn-primary" href="/LabTest/EditTestTitle/@TestTitle.Id" role="button">Edit</a></td>
+
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#Doctors").DataTable();
+        });
+    </script>
+}

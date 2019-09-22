@@ -1,0 +1,118 @@
+﻿@model LabReport2.ViewModels.SeeReportsViewModel
+@{
+    ViewBag.Title = "SeeReports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="row">
+            <div class="col-md-5"></div>
+
+            <div align="center" class="alert alert-success col-md-3" role="alert">
+                Total Reports-@Model.TotalReportCount
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row" align="center">
+                <div class="col-md-1"></div>
+
+
+
+                <div class="alert alert-info col-md-3 mx-1" role="alert">
+                    Patient Name-@Model.Patient.PatientName
+                </div>
+                <div class="col-md-1"></div>
+                <div class="alert alert-info col-md-3 mx-1" role="alert">
+                    Gender/Age-@Model.Patient.Gender/@Model.Patient.Age
+                </div>
+                <div class="col-md-1"></div>
+                <div class="alert alert-info col-md-3 mx-1" role="alert">
+                    Patient Id-@Model.Patient.Id
+                </div>
+
+            </div>
+        </div>
+        @*<div align="center" class="alert alert-info col-md-3 mx-1" role="alert">
+            Report Count-@Model.TotalReportCount
+        </div>*@
+
+        <div class="container" align="center">
+            <h3>Varoius Test Titles</h3>
+            <div class="row" align="center">
+                @*        <div class="col-md-1"></div>*@
+                @foreach (var testTitleName in Model.UniqueTestTitles)
+                {
+                    <div class="col-md-1"></div>
+
+                    <div class="alert bg-primary col-md-3 mx-1" role="alert">
+                        @testTitleName
+                    </div>
+                }
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+        <table id="Patients" class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Test&nbsp;Title&nbsp;Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Referred By</th>
+                    <th scope="col">Consulting Pathologist</th>
+                    <th scope="col">InvesigatedBy</th>
+
+                    <th scope="col">InvestigatedOn</th>
+                    <th scope="col">Report&nbsp;By</th>
+
+                    <th scope="col">Price</th>
+                    <th scope="col">See Report</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var report in Model.Reports)
+                {
+                    <tr>
+
+                        <td>@report.TestTitle.Name</td>
+                        <td>@report.Date</td>
+
+                        <td>@report.Doctor.Name</td>
+                        <td>@report.ConsultingPathologist.Name</td>
+
+                        <td>@report.InvestigatedBy</td>
+                        <td>@report.DateAdded</td>
+                        <td>@report.ReportBy</td>
+                        <td>@report.Price</td>
+
+
+
+                        <td><a type="button" class="btn btn-primary" href="/PatientReport/ViewReport/@report.Id">See Report </a></td>
+
+
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+
+        @section scripts
+{
+            <script>
+                $(document).ready(function () {
+
+                    $("#Patients").DataTable();
+                });
+            </script>
+        }

@@ -1,0 +1,103 @@
+﻿@model LabReport2.ViewModels.ShowReportViewModel
+@{
+    ViewBag.Title = "ShowData";
+    Layout = "~/Views/Shared/_ReportView.cshtml";
+}
+
+
+    <center>
+        <div style="width:808px;border:0px solid #000; height:auto; font-family:arial; font-size:14px">
+            <div style="width:710px; height:auto; margin:120px 0% 0px 0px; border-radius:5px; border:2px solid #000">
+                <table width="700" border="0" align="center" cellpadding="3" cellspacing="3" class="tab1">
+                    <!-- <tr bgcolor="#085598" style="color:#FFF">
+                    <td colspan="4" align="center" valign="middle">Patient Information</td>
+                    </tr>-->
+                    <tr>
+                        <th width="80" align="left" valign="middle">Patient Name</th>
+                        <th align="left" valign="middle">:&nbsp;Mrs. hasina bee</th>
+                        <th align="left" valign="middle">Gender / Age</th>
+                        <td align="left" valign="middle">:&nbsp;Female / 58 Years&nbsp;</td>
+                        <th align="left" valign="middle">Patient Id</th>
+                        <td align="left" valign="middle">:&nbsp;ID5258</td>
+
+
+                    </tr>
+                    <tr>
+                        <th align="left" valign="middle">Referred By</th>
+                        <td align="left" valign="middle">:&nbsp;Dr. i.m. mansuri </td>
+
+                        <th align="left" valign="middle"> Date</th>
+                        <td align="left" valign="middle">:&nbsp;13-09-2019</td>
+                        <th align="left" valign="middle">Reg. No.</th>
+                        <td align="left" valign="middle">:&nbsp;5275</td>
+                    </tr>
+
+
+
+                </table>
+
+            </div>
+            <div style="width:700px;  border:0px solid #000; height:auto; margin-top:0px;">
+                <table align="center" width="700" cellpadding="5" bordercolor="#a1a1a1" border="0" style="border-collapse:collapse;">
+                    <!--<tr>
+    <th style="font-family:'Courier New', Courier, monospace" colspan="3" align="center" valign="middle">Reports</th>
+    </tr>-->
+                    <tr>
+                        <th height="25" colspan="3" align="center" valign="top" style="text-transform:uppercase; font-size:20px; text-decoration:underline; font-family:'Courier New', Courier, monospace">Haematology </th>
+                    </tr>
+
+                    <tr style="border-top:1px dotted #333; border-bottom:1px dotted #333;font-family:'Courier New', Courier, monospace">
+                        <th align="left" valign="middle">TEST DESCRIPTION</th>
+                        <th width="180" align="left" valign="middle">OBSERVED VALUE</th>
+                        <th width="280" align="left" valign="middle">
+                            REFERENCE RANGE\UNITS
+
+                        </th>
+
+                    </tr>
+                    @foreach (var subtest in Model.SubtestTitles)
+                    {
+                        var testInSubtestCount = Model.Tests.Where(t => t.Id == subtest.Id).Count();
+                        if (testInSubtestCount==0)
+                        {
+                            continue;
+                        }
+                        <tr>
+                            <th colspan="3" align="left" valign="middle" style="text-transform:uppercase; font-size:14px; text-decoration:underline;">@subtest.Name</th>
+                        </tr>
+                        foreach (var test in Model.Tests.Where(t => t.SubtestTitleId == subtest.Id))
+                        {
+                            <tr style="font-size:14px;">
+                                <td align="left" valign="bottom" style="text-transform:capitalize;">  @test.Name<label style="font-size:10px"></label></td>
+                                <td align="left" valign="bottom" style='font-weight:bold'> @test.Unit&nbsp;</td>
+
+                                <!--<td align="left" valign="bottom"  style="font-weight:bold"  style="font-weight:bold"  style="font-weight:bold"  style="font-weight:bold"  >  </td>-->
+                               @{ 
+                                   if (test.MaxValue == null && test.MinValue == null)
+                                   {
+
+                                   }
+                                   else
+                                   {
+                            <td align="left" valign="bottom">
+                                @test.MaxValue - @test.MinValue&nbsp;@test.Unit
+                            </td>
+                                       }
+                                   }
+
+                            </tr>
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+                </table>
+            </div>
+        </div>
+    </center>

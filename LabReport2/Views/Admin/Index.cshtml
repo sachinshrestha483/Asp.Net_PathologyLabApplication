@@ -1,0 +1,169 @@
+﻿@model LabReport2.ViewModels.AdminViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LabTechnicianView.cshtml";
+}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Admin Panel</h1>
+    </div>
+   
+</div>
+@*<div class="row">
+        <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+        <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+        <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    </div>*@
+@*<div class="container" align="center">
+        <div class="row">
+            <div class="alert alert-primary  col-mx-4" role="alert">
+                A simple primary alert—check it out!
+            </div>
+            <div class="col-md-1"></div>
+
+            <div class="alert alert-primary  col-mx-4" role="alert">
+                A simple primary alert—check it out!
+            </div>
+            <div class="col-md-1"></div>
+
+            <div class="alert alert-primary  col-mx-4" role="alert">
+                A simple primary alert—check it out!
+            </div>
+
+        </div>
+    </div>*@
+<div>
+    <div class="row">
+        <div class="col-md-1"></div>
+
+        <div class="card text-white bg-primary col-md-3" style="max-height: 10rem;max-width: 18rem">
+            <div class="card-header" align="center">Number Of Report This Month</div>
+            <div class="card-body">
+                <h1 align="center" class="card-title display-4">@Model.NumberOfReportThisMonth</h1>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="card text-white bg-primary col-md-3" style="max-height: 10rem;max-width: 18rem">
+            <div class="card-header" align="center">Number of Report Today</div>
+            <div class="card-body">
+                <h5 class="card-title display-4" align="center">@Model.NumberofRerportToday</h5>
+
+
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+
+        <div class="card text-white bg-primary col-md-3" style="max-height: 10rem;max-width: 18rem">
+            <div class="card-header" align="center">Number Of Report Prevoius Month</div>
+            <div class="card-body">
+                <h5 class="card-title display-4" align="center">@Model.NumberOfReportPreviousMonth</h5>
+            </div>
+        </div>
+
+
+    </div>
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-3"></div>
+
+        <div class="card text-white bg-primary col-md-3" style="max-height: 10rem;max-width: 18rem">
+            <div class="card-header" align="center">Revenue Last Month</div>
+            <div class="card-body">
+                <h5 class="card-title display-4" align="center">@Model.LastMonthRevenue</h5>
+
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="card text-white bg-primary col-md-3" style="max-height: 10rem;max-width: 18rem">
+            <div class="card-header" align="center">Revenue Till Now This Month</div>
+            <div class="card-body">
+                <h5 class="card-title display-4" align="center">@Model.CurrentMonthRevenue</h5>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+
+
+
+
+    </div>
+    <br />
+    <br />
+
+    <div class="jumbotron jumbotron-fluid">
+        <h1 align="center" class="display-4">Revenue Calculator</h1>
+        <hr class="my-4">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div align="center" class="container">
+                    <form method="get" id="myform" action="/Admin/RevenueCalCulator">
+                        <label align="center">Start Date</label>
+                        <input required class="form-control form-control-lg col-lg-6" id="startDate" name="startDate" type="date" placeholder=".form-control-lg">
+                        <br />
+                        <label align="center">End Date</label>
+                        <input required class="form-control form-control-lg col-lg-6" id="endDate" type="date" name="endDate" placeholder=".form-control-lg">
+                        <br />
+
+                    </form>
+                    <div align="center">
+                        <button align="center" id="btnSubmit" class="btn btn-primary">Calculate</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div align="center" id="loadData">
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+  
+
+    @section scripts{
+<script>
+    //$(document).ready(function () {
+
+
+
+
+    //    $('#loadData').load("/Admin/RevenueCalCulator?startDate=2019-09-14&endDate=2019-09-28");
+
+    //    //$('#loadData').load("");
+
+
+
+
+    //});
+    $(document).ready(function () {
+
+        $('#btnSubmit').click(function () {
+            var startDate= $("#startDate").val()
+            var endDate= $("#endDate").val()
+
+            $('#loadData').load("/Admin/RevenueCalCulator?startDate="+startDate+"&endDate=" + endDate)
+
+            $('#startDate').val('');
+            $('#endDate').val('');
+        });
+
+    });
+
+</script>
+
+
+}
+
+

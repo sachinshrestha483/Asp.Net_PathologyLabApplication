@@ -1,0 +1,60 @@
+﻿@model LabReport2.Models.Patient
+@{
+    ViewBag.Title = "PatientForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    var sex = new List<string> { "M", "F","Others" };
+
+}
+
+<h2 align="center">PatientForm</h2>
+<div class="container">
+    @using (Html.BeginForm("Save", "Patient"))
+    {
+
+        <div class="Form-group">
+            @Html.LabelFor(p => p.PatientName)
+            @Html.TextBoxFor(p => p.PatientName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.PatientName)
+
+        </div>
+
+        <div class="Form-group">
+            @Html.LabelFor(p => p.Age)
+            @Html.TextBoxFor(p => p.Age, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Age)
+
+        </div>
+        <div class="Form-group">
+            @Html.LabelFor(p => p.Phone)
+            @Html.TextBoxFor(p => p.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Phone)
+
+        </div>
+        <div class="Form-group">
+            @Html.LabelFor(p => p.Address)
+            @Html.TextBoxFor(p => p.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Address)
+
+        </div>
+        <div class="Form-group">
+            @Html.LabelFor(p => p.Gender)
+            @Html.DropDownListFor(p => p.Gender, new SelectList(sex), "Select Gender Of Patient", new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Gender)
+        </div>
+        <br>
+        @Html.HiddenFor(p => p.Id);
+
+        <div><button class="btn btn-primary" type="submit">Submit</button></div>
+
+        @Html.AntiForgeryToken()
+    }
+
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+

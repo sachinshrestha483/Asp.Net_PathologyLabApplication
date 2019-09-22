@@ -1,0 +1,124 @@
+﻿@model LabReport2.ViewModels.OldPatientReportBillViewModel
+@{
+    ViewBag.Title = "OldPatientBillForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div align="center">
+
+        <hr class="my-4">
+        <h5>Patient Name-@Model.Patient.PatientName</h5>
+        <h5>Patient Age- @Model.Patient.Age</h5>
+        <h5>Patient Phone- @Model.Patient.Phone</h5>
+        <hr class="my-4">
+
+
+        @using (Html.BeginForm("SaveOldPatientBill", "Report"))
+        {
+            <div align="center">
+                <label>Age</label>
+                @Html.TextBoxFor(b => b.Patient.Age, new { @class = "form-control" })
+
+            </div>
+            <hr class="my-4">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Sno</th>
+                        <th scope="col">TestTitle</th>
+
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 0;
+                        foreach (var report in Model.Reports)
+                        {
+                            @Html.HiddenFor(t => Model.Reports[i].TestTitleId)
+
+                            
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@Model.Reports[i].TestTitle.Name</td>
+                                <td>
+                                    @Html.TextBoxFor(d => Model.Reports[i].Price, new { @class = "form-control" })
+                                </td>
+
+
+                            </tr>
+                            i++;
+                        }
+                    }
+
+                    <tr>
+
+
+                        <th></th>
+
+                        <td>Discount</td>
+                        <td>
+                            @Html.TextBoxFor(b => b.Bill.Discount, new { @class = "form-control" })
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            @Html.HiddenFor(t => t.PatientId)
+
+            @Html.HiddenFor(t => t.Report.DoctorId)
+
+            @Html.HiddenFor(t => t.Report.DigitalSignature)
+            @Html.HiddenFor(t => t.Report.Date)
+            @Html.HiddenFor(t => t.Report.DateAdded)
+            @Html.HiddenFor(t => t.Report.InvestigatedBy)
+            @Html.HiddenFor(t => t.Report.ReportBy)
+            
+
+
+
+            @*for (int i = 0; i < 12; i++)
+            {
+                @Html.HiddenFor(t => t.Reports[i].TestTitleId);
+            }*@
+
+            @*int i = 0;
+            foreach (var item in Model.Reports)
+            {
+                @Html.HiddenFor(t => t.Reports[i].TestTitleId);
+
+                i++;
+            }*@
+            @*i = 0;
+            foreach (var item in Model.TestTitleIds)
+            {
+                @Html.HiddenFor(t => t.TestTitleIds[i]);
+                i++;
+            }
+            @*Html.HiddenFor(t => t.TestTitleIds[2]);
+            @Html.HiddenFor(t => t.TestTitleIds[3]);
+            @Html.HiddenFor(t => t.TestTitleIds[4]);
+            @Html.HiddenFor(t => t.TestTitleIds[5]);
+            @Html.HiddenFor(t => t.TestTitleIds[6]);
+            @Html.HiddenFor(t => t.TestTitleIds[7]);
+            @Html.HiddenFor(t => t.TestTitleIds[8]);
+            @Html.HiddenFor(t => t.TestTitleIds[9]);
+            @Html.HiddenFor(t => t.TestTitleIds[10]);
+            @Html.HiddenFor(t => t.TestTitleIds[11]);*@
+
+            <div><button class="btn btn-primary" type="submit">Submit</button></div>
+
+
+        }
+
+    </div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+
+
+
+
+

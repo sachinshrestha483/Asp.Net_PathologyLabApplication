@@ -1,0 +1,78 @@
+﻿@model LabReport2.ViewModels.ConsultingPathologistViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+        <h1 align="center"> Consulting  Pathologist</h1>
+        <hr class="my-4">
+
+
+        <div class="container-fluid" align="center">
+            <nav align="center" aria-label="breadcrumb">
+                Consulting Pathologist - @Model.ConsultingPathologist.Name (@Model.ConsultingPathologist.Degree)
+
+            </nav>
+        </div>
+        <hr class="my-4">
+        <a class="btn btn-primary" href="/ConsultingPathologist/ConsultingPathologistForm" role="button">Add New Consulting Pathologist</a>
+        <br /><br />
+        <a class="btn btn-primary" href="/DefaultValue/ChangeDefaultConsultingPathologistForm" role="button">Change Default Consulting Pathologist</a>
+
+        <hr class="my-4">
+
+        <table id="Patients" class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Pathologist Id</th>
+
+                    <th>Doctor Name</th>
+                    <th>Degree</th>
+                    <th>Post</th>
+                    <th>Reg.No</th>
+                    <th>Phone Number</th>
+
+                    <th>Digital Signature</th>
+
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pathologist in Model.ConsultingPathologists)
+                {
+                    <tr>
+                        <th scope="row">@pathologist.id</th>
+                        <td><a href=" /ConsultingPathologist/EditConsultingPathologist/@pathologist.id">@pathologist.Name</a></td>
+                        <td>@pathologist.Degree</td>
+
+                        <td>@pathologist.PostName</td>
+                        <td>@pathologist.RegNo</td>
+                        <th>@pathologist.Phone</th>
+
+                        <td> <img src="@pathologist.DigitalSignaturePhotoaddress" width="150" height="100"></td>
+
+
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+        @section scripts
+{
+            <script>
+        $(document).ready(function () {
+
+            $("#Patients").DataTable();
+        });
+            </script>
+        }
+
+
+ 

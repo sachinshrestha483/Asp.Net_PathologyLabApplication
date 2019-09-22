@@ -1,0 +1,61 @@
+﻿@model LabReport2.ViewModels.DoctorViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 align="center">Doctors </h2>
+<hr class="my-4">
+<div class="container-fluid" align="center">
+    <nav align="center" aria-label="breadcrumb">
+        Consulting Pathologist - @Model.ConsultingPathologist.Name (@Model.ConsultingPathologist.Degree) 
+        <br />
+        <a href=" /DefaultValue/ChangeDefaultConsultingPathologistForm">Change</a>
+    </nav>
+</div>
+<hr class="my-4">
+
+<a class="btn btn-primary" href="doctor/doctorform" role="button">Add New Doctor</a>
+<br>
+
+<br>
+
+<table id="Doctors" class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Doctor Id</th>
+            <th scope="col">Doctor Name</th>
+            <th scope="col">Doctor Commission</th>
+            <th scope="col">Edit</th>
+
+
+            <th scope="col">Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doctor in Model.Doctors)
+        {
+            <tr>
+                <th scope="row">@doctor.Id</th>
+                <td>@doctor.Name</td>
+                <td>@doctor.Commission</td>
+                <td><a class="btn btn-primary" href="/doctor/edit/@doctor.Id" role="button">Edit</a></td>
+                <td>@doctor.Phone</td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#Doctors").DataTable();
+        });
+    </script>
+}
+

@@ -1,0 +1,129 @@
+﻿@model LabReport2.ViewModels.NewPatientReportViewModel
+@{
+    ViewBag.Title = "NewPatientReportForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var sex = new List<string> { "M", "F", "Others" };
+
+}
+
+<h2 align="center">New Patient Report Form</h2>
+<hr class="my-4">
+
+<div align="center">
+    @using (Html.BeginForm("SaveNewPatientReport", "Report"))
+    {
+        //firstly we take  the patient details
+        <div class="form-group">
+            @Html.LabelFor(p => p.Patient.PatientName)
+            @Html.TextBoxFor(p => p.Patient.PatientName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Patient.PatientName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Patient.Phone)
+            @Html.TextBoxFor(p => p.Patient.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Patient.Phone)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Patient.Age)
+            @Html.TextBoxFor(p => p.Patient.Age, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Patient.Age)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Patient.Address)
+            @Html.TextBoxFor(p => p.Patient.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Patient.Address)
+        </div>
+        <div class="Form-group">
+            @Html.LabelFor(p => p.Patient.Gender)
+            @Html.DropDownListFor(p => p.Patient.Gender, new SelectList(sex), "Select Gender Of Patient", new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Patient.Gender)
+        </div>
+        //now for report
+        <div class="form-group">
+            @Html.LabelFor(r => r.Report.Date)
+            @Html.TextBoxFor(r => r.Report.Date, new { @class = "form-control", @type = "Date", @value = string.Format("{0:d MMM yyyy}", DateTime.Now) })
+            @Html.ValidationMessageFor(r => r.Report.Date)
+        </div>
+
+
+        <div class="Form-group">
+            <label>Referred By</label>
+            @Html.DropDownListFor(r => r.Report.DoctorId, new SelectList(Model.Doctors, "Id", "Name"), "Referred By", new { @class = "form-control" })
+            @Html.ValidationMessageFor(r => r.Report.DoctorId)
+        </div>
+
+
+
+        <div class="checkbox">
+            <label>
+                @Html.CheckBoxFor(r => r.Report.DigitalSignature) Digital Signature
+            </label>
+        </div>
+
+
+        <div class="form-group">
+            <label>Test Title 1</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[0], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control, Required" })
+        </div>
+
+        <div class="form-group">
+            <label>Test Title 2</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[1], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Test Title 3</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[2], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Test Title 4</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[3], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Test Title 5</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[4], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Test Title 6</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[5], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Test Title 7</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[6], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Test Title 8</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[7], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Test Title 9</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[8], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Test Title 10</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[9], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Test Title 11</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[10], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Test Title 12</label>
+            @Html.DropDownListFor(r => r.TestTitleIds[11], new SelectList(Model.TestTitles, "Id", "Name"), "Select Test Title", new { @class = "form-control" })
+        </div>
+
+        
+
+
+
+
+        @Html.AntiForgeryToken()
+        <div><button class="btn btn-primary" type="submit">Submit</button></div>
+
+    }
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

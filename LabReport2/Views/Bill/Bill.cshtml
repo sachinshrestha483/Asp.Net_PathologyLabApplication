@@ -1,0 +1,129 @@
+﻿@model LabReport2.ViewModels.BillViewModel
+@{
+
+    Layout = "~/Views/Shared/_BillLayout.cshtml";
+
+}
+
+@*<h2>Bill</h2>
+    <h3>bIll By- @Model.Bill.BillBy</h3>
+    <h3> Date- @Model.Bill.Date</h3>
+    <h3> Discout -@Model.Bill.Discount</h3>
+    <h3>Refeerded by-@Model.Bill.Doctor.Name</h3>
+    <h3> Patient Name-@Model.Bill.Patient.PatientName</h3>
+    <h3> Age- @Model.Bill.Patient.Age</h3>
+    <h3> Gender -@Model.Bill.Patient.Gender</h3>
+
+    <h3>Patient Phone - @Model.Bill.Patient.Phone</h3>
+    <h3> bill Id - @Model.Bill.Id</h3>
+
+    @foreach (var item in Model.Billitems)
+    {
+        <h1>@item.Report.TestTitle.Name</h1>
+    }*@
+
+
+
+
+
+
+
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <img src="~/StaticContent/logo2.jpg" style="width:100%; max-width:300px;">
+                        </td>
+
+                        <td>
+                            <h5 style="  font-family: 'Montserrat', sans-serif;">
+                                Invoice Id: @Model.Bill.Id<br>
+                                Date:@string.Format("{0:d MMM yyyy}", @Model.Bill.Date)
+                                
+                            </h5>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td style="  font-family: 'Montserrat', sans-serif;">
+                            Life Line Clinic Pathology Lab <br>
+                            Lokendra Talkies Road <br>
+                            Ratlam (M.P.)
+                            Mob:9893060104,9993114708
+                        </td>
+
+                        <td style="  font-family: 'Montserrat', sans-serif;">
+
+                            Invoice For <br>
+
+                            @Model.Bill.Patient.PatientName<br>
+                            Age-@Model.Bill.Patient.Age <br>
+
+                            Phone-@Model.Bill.Patient.Phone<br>
+                            Referred By- @Model.Bill.Doctor.Name
+
+
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+
+
+
+
+        <tr class="heading">
+            <td style="  font-family: 'Montserrat', sans-serif;">
+                Test
+            </td>
+           
+            <td style="  font-family: 'Montserrat', sans-serif;">
+                Price
+            </td>
+        </tr>
+        @foreach (var item in Model.Billitems)
+        {
+    <tr class="item">
+        <td style="  font-family: 'Montserrat', sans-serif;">
+            @item.Report.TestTitle.Name
+        </td>
+       
+        <td style="  font-family: 'Montserrat', sans-serif;">
+            @item.Report.Price
+        </td>
+    </tr>
+        }
+
+
+        <tr class="total">
+            <td></td>
+
+            <td style="  font-family: 'Montserrat', sans-serif;">
+                Discount:@Model.Bill.Discount
+
+            </td>
+        </tr>
+
+        <tr class="total">
+            <td></td>
+
+            <td style="  font-family: 'Montserrat', sans-serif;">
+                Total: @Model.Total
+            </td>
+        </tr>
+    </table>
+    <h6>Bill By : Sachin</h6>
+</div>
+
+

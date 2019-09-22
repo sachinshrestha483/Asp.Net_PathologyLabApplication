@@ -1,0 +1,96 @@
+﻿@model LabReport2.ViewModels.SubTestViewModel
+@{
+    ViewBag.Title = "SubtestForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>.vl {
+  border-left: 3px solid black;
+  height: 500px;
+}</style>
+
+<h2>SubtestForm</h2>
+<div class="row">
+    @*@{
+            if (Model.SubtestTitle.TestTitleId==0)
+            {
+                <h1> Problem in code </h1>
+            }
+            else if ((Model.SubtestTitle.TestTitleId==1))
+            {
+                <h1> Ok Done </h1>
+            }
+
+        }*@
+    <div class="col-lg-6">
+        <div align="center">
+            @{
+                if (Model.SubtestTitle.Id == 0)
+                {
+                    <h2> Add New Subtest For @Model.TestTitle.Name.ToString()</h2>
+                    <div class="alert alert-danger" role="alert">
+                        If The Test Contains No Subtests The Create A Subtest With Name-  NULL
+                    </div>
+                }
+                else
+                {
+                    <h2> Edit The  Subtest Name @Model.SubtestTitle.Name.ToString()  For @Model.TestTitle.Name.ToString()  </h2>
+                }
+            }
+
+
+
+            <a href="/LabTest" class=" btn btn-primary" type="button">Go Back To LabTest Main Page</a>
+            <br>
+            <br>
+
+            @using (Html.BeginForm("SaveSubtestForm", "LabTest"))
+            {
+
+                <div class="Form-group">
+                    @Html.LabelFor(s => s.SubtestTitle.Name)
+                    @Html.TextBoxFor(s => s.SubtestTitle.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(s => s.SubtestTitle.Name)
+
+                </div>
+
+                <br>
+                @Html.HiddenFor(s => s.SubtestTitle.Id);
+
+                @Html.HiddenFor(s => s.SubtestTitle.TestTitleId);
+
+                <div><button class="btn btn-primary" type="submit">Add</button></div>
+
+                @Html.AntiForgeryToken()
+            }
+
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+
+        <br><br ><br >
+        <div class="alert alert-success" role="alert">
+            Click The Subtest Name For Edit It
+        </div>
+       
+        <ul class="list-group">
+            @foreach (var subtests in Model.SubtestTitles)
+            {
+            <li class="list-group-item " align="center">
+                <a href=" /Labtest/EditSubtestTitle/@subtests.Id">@subtests.Name </a>
+                <a type="button" href=" /Labtest/TestForm/@subtests.Id" class="btn btn-primary btn-sm">Add Tests</a>
+            </li>
+                
+                
+
+            }
+
+        </ul>
+
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+

@@ -1,0 +1,48 @@
+﻿
+@model LabReport2.ViewModels.ConsultingPathologistViewModel
+@{
+    ViewBag.Title = "ConsultingPathologistForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 align="centers">Consulting Pathologist Form</h2>
+<div align="center">
+    @using (Html.BeginForm("SaveConsultingPathologist", "ConsultingPathologist", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(p => p.ConsultingPathologist.Name)
+            @Html.TextBoxFor(p => p.ConsultingPathologist.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.ConsultingPathologist.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.ConsultingPathologist.Degree)
+            @Html.TextBoxFor(p => p.ConsultingPathologist.Degree, new { @class = "form-control" })
+            @Html.ValidationMessageFor((p => p.ConsultingPathologist.Degree))
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.ConsultingPathologist.RegNo)
+            @Html.TextBoxFor(p => p.ConsultingPathologist.RegNo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.ConsultingPathologist.RegNo)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.ConsultingPathologist.Phone)
+            @Html.TextBoxFor(p => p.ConsultingPathologist.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.ConsultingPathologist.Phone)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.DigitalSignaturePhoto)
+            @Html.TextBoxFor(m => m.DigitalSignaturePhoto, new { @class = "form-control", @type = "File" })
+        </div>
+
+
+        @Html.HiddenFor(p => p.ConsultingPathologist.id)
+        @Html.HiddenFor(p=>p.ConsultingPathologist.PostName)
+        @Html.AntiForgeryToken()
+        <div><button class="btn btn-primary" type="submit">Submit</button></div>
+    }
+
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

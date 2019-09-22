@@ -1,0 +1,65 @@
+﻿@model LabReport2.ViewModels.TestViewModel
+@{
+    ViewBag.Title = "EditTest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" align="center">
+
+    <h2 class="display-4">EditTest</h2>
+    <p class="lead">@Model.Test.Name </p>
+    <div class="container-fluid" align="center">
+        <nav align="center" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">@Model.Test.SubtestTitle.TestTitle.Name</a></li>
+                <li class="breadcrumb-item"><a href="#">@Model.Test.SubtestTitle.Name</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Test.Name</li>
+            </ol>
+        </nav>
+    </div>
+    <hr class="my-4">
+
+</div>
+
+<div class="container" align="center">
+
+    @using (Html.BeginForm("SaveEditTest", "LabTest"))
+    {
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(t => t.Test.Name)
+            @Html.TextBoxFor(t => t.Test.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Test.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(t => t.Test.Unit)
+            @Html.TextBoxFor(t => t.Test.Unit, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Test.Unit)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(t => t.Test.MaxValue)
+            @Html.TextBoxFor(t => t.Test.MaxValue, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Test.MaxValue)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(t => t.Test.MinValue)
+            @Html.TextBoxFor(t => t.Test.MinValue, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Test.MinValue)
+        </div>
+        @Html.HiddenFor(t => t.Test.SubtestTitleId, new { @id = "SubtitleTestId" })
+        @Html.HiddenFor(t => t.Test.Id, new { @id = "SubtitleTestId" })
+
+        <br>
+        <div><button id="btnSubmit" class="btn btn-primary" type="submit">Edit</button></div>
+
+        @Html.AntiForgeryToken()
+    }
+
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,122 @@
+﻿
+@model LabReport2.ViewModels.TestViewModel
+@{
+    ViewBag.Title = "TestForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 align="center">  @Model.SubtestTitle.TestTitle.Name TestTitle </h2>
+<h3 align="center"> @Model.SubtestTitle.Name </h3>
+<br />
+<br />
+<div class="row">
+
+    <div class="col-lg-4">
+        <form id="myform">
+            <h2 >Add Test</h2>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(t => t.Test.Name)
+                @Html.TextBoxFor(t => t.Test.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.Test.Name)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(t => t.Test.Unit)
+                @Html.TextBoxFor(t => t.Test.Unit, new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.Test.Unit)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(t => t.Test.MaxValue)
+                @Html.TextBoxFor(t => t.Test.MaxValue, new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.Test.MaxValue)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(t => t.Test.MinValue)
+                @Html.TextBoxFor(t => t.Test.MinValue, new { @class = "form-control" })
+                @Html.ValidationMessageFor(t => t.Test.MinValue)
+            </div>
+            @Html.HiddenFor(t => t.Test.SubtestTitleId, new { @id = "SubtitleTestId" })
+            <br>
+            <div><button id="btnSubmit" class="btn btn-primary" type="submit">Submit</button></div>
+
+            @Html.AntiForgeryToken()
+        </form>
+    </div>
+    <div class=" container col-lg-8">
+        
+        <div class="container " align="center">
+            <div id="loadData"></div>
+        </div>
+    </div> 
+
+</div>
+
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+
+    $(document).ready(function () {
+
+        
+            var data= $("#SubtitleTestId").val()
+
+            $('#loadData').load("../LoadTest/"+data)
+
+        
+
+    });
+    $(document).ready(function () {
+
+        $('#btnSubmit').click(function () {
+            var data= $("#SubtitleTestId").val()
+
+            $('#loadData').load("../LoadTest/"+data)
+
+        });
+
+    });
+
+     
+    $(document).ready(function () {
+        var vm = {};
+       
+
+        $("#myform").submit(function (e) {
+            //
+            e.preventDefault();
+            //
+            
+            $.ajax({
+
+                url: "../Savetest",
+                method: "post",
+
+                data:$("#myform").serialize()
+
+            })
+            .done(function () {
+               // alert("Done");
+                 $("#myform").trigger("reset");
+            var data= $("#SubtitleTestId").val()
+
+                $('#loadData').load("../LoadTest/" + data);
+            })
+            .fail(function () {
+                   // alert("Not Done");
+
+            });
+            
+
+            
+        });
+
+
+    });
+
+    </script>
+
+}

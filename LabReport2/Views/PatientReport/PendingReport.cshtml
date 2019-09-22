@@ -1,0 +1,150 @@
+﻿@model LabReport2.ViewModels.PendingReportViewModel
+
+@{
+    ViewBag.Title = "PendingReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 align="center">Pending Reports</h2>
+<hr class="my-4">
+<div class="alert alert-primary container" role="alert">
+    <h4 align="center" > Total Pending Reports-@Model.PendingreportCount</h4align>
+
+</div>
+<hr class="my-4">
+
+@*@foreach (var item in Model.PendingReports)
+    {
+        <hr class="my-4">
+        <h3>@item.Patient.PatientName</h3>
+        <h3>@item.TestTitle.Name</h3>
+
+
+    }*@
+@*<div class="table-responsive">
+
+        <table id="PendingReports" class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Sno</th>
+                    <th scope="col">Report Id</th>
+
+                    <th scope="col">Date</th>
+                    <th scope="col">Add Result</th>
+
+                    <th scope="col">Patient Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Referred By</th>
+                    <th scope="col">Sex</th>
+                    <th scope="col">Test Name</th>
+
+                    <th scope="col">Date Created</th>
+                    <th scope="col">Report By</th>
+                    <th scope="col">Consulting Pathologist</th>
+                    <th scope="col">Bill</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                    foreach (var item in Model.PendingReports)
+                    {
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@item.Id</td>
+
+                                <td>@string.Format("{0:d MMM yyyy}", item.Date)</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary">Add Result</button>
+                                </td>
+                                <td>@item.Patient.PatientName</td>
+                                <td>@item.Patient.Age</td>
+                                <td>@item.Doctor.Name</td>
+                                <td>@item.Patient.Gender</td>
+                                <td>@item.TestTitle.Name</td>
+                                <td>@item.DateAdded</td>
+                                <td>@item.ReportBy</td>
+                                <td>@item.ConsultingPathologist.Name</td>
+                                <td><a href="/bill/bill/">ertg</a></td>
+
+
+
+                            </tr>
+                        i++;
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>*@
+
+
+
+
+<div class="table-responsive">
+
+    <table id="PendingReports" class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Sno</th>
+                <th scope="col">RId&nbsp;Id</th>
+
+                <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col">Add&nbsp;Result</th>
+
+                <th scope="col">Patient&nbsp;Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Referred&nbsp;By</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Test&nbsp;Name</th>
+
+                <th scope="col">DateCreated</th>
+                <th scope="col">ReportBy</th>
+                <th scope="col">ConsultingPathologist</th>
+                <th scope="col">Bill</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int j = 1;
+                foreach (var item in Model.Billitems)
+                {
+                    <tr>
+                        <th scope="row">@j</th>
+                        <td>@item.Report.Id</td>
+
+                        <td>@string.Format("{0:d MMM yyyy}", item.Report.Date)</td>
+                        <td>
+                            <a type="button"  href="/PatientReport/AddResult/@item.ReportId"class="btn btn-primary">Add Result</a>
+                        </td>
+                        <td>@item.Report.Patient.PatientName</td>
+                        <td>@item.Report.Patient.Age</td>
+                        <td>@item.Report.Doctor.Name</td>
+                        <td>@item.Report.Patient.Gender</td>
+                        <td>@item.Report.TestTitle.Name</td>
+                        <td>@item.Report.DateAdded</td>
+                        <td>@item.Report.ReportBy</td>
+                        <td>@item.Report.ConsultingPathologist.Name</td>
+                        <td><a href="/bill/bill/@item.BillId">Bill</a></td>
+
+
+
+                    </tr>
+                    j++;
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#PendingReports").DataTable();
+        });
+    </script>
+}

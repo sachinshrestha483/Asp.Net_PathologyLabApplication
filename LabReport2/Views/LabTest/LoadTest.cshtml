@@ -1,0 +1,43 @@
+﻿@model List<LabReport2.Models.Test>
+@*@{
+    ViewBag.Title = "LoadTest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+   
+    <div class="row">
+        <div class="table-responsive col-lg-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-md-1" scope="col">Test Name</th>
+                        <th class="col-md-1" scope="col">Unit</th>
+
+                        <th class="col-md-1" scope="col">MaxValue</th>
+
+                        <th class="col-md-1" scope="col">MinValue</th>
+                        <th class="col-md-1" scope="col">Edit</th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var test in Model)
+                    {
+                    <tr>
+                        <th scope="row">@test.Name</th>
+                        <td>@test.Unit</td>
+
+                        <td>@test.MaxValue</td>
+                        <td>@test.MinValue</td>
+                        <td><a href="/Labtest/EditTest/@test.Id">Edit</a></td>
+
+
+                    </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
